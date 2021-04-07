@@ -1,0 +1,11 @@
+FROM debian:stretch
+# Necessary system utils
+RUN apt-get update && apt-get install -y less vim tcpdump net-tools
+RUN apt-get update && apt-get install -y nginx php7.0 php7.0-mbstring php-mysql php7.0-gd php7.0-mcrypt php7.0-mysql php7.0-cli php7.0-curl php7.0-xml ffmpeg links git
+COPY ampache /var/www/html/ampache/
+COPY tools/composer.phar /var/www/html/ampache/composer
+RUN chmod +x /var/www/html/ampache/composer
+RUN cd /var/www/html/ampache/ && /var/www/html/ampache/composer install --prefer-source --no-interaction
+RUN cp /var/www/html/ampache/config/ampache.cfg.php.dist /var/www/html/ampache/config/ampache.cfg.php
+RUN mkdir /var/log/ampache
+CMD ["nginx","-g","daemon off;"]
