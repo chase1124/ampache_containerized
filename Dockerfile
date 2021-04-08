@@ -11,6 +11,7 @@ RUN apt-get update && apt-get install -y nginx mariadb-server php7.0 php7.0-mbst
 #RUN service mysql start
 RUN echo "[mysqld]" >> /etc/mysql/my.cnf
 RUN echo "bind-address=0.0.0.0" >> /etc/mysql/my.cnf
+RUN service mysql start && mysql --user=root -e "create database ampache;"
 RUN service mysql start && mysql --user=root -e "grant all privileges on *.* to 'chasejam'@'%' identified by 'test';"
 #CMD service mysql start && tail -f /var/log/mysql/error.log
 #ENTRYPOINT ["tail", "-f", "/dev/null"]
