@@ -1,0 +1,28 @@
+version: '1'
+services:
+  #Nginx Service
+  webserver:
+    image: ampache_nginx:4.4.1
+    container_name: webserver
+    restart: unless-stopped
+    tty: true
+    ports:
+      - "80:80"
+    networks:
+      - app-network
+
+  #MySQL Service
+  db:
+    image: ampache_db:dev
+    container_name: db
+    restart: unless-stopped
+    tty: true
+    ports:
+      - "3306:3306"
+    networks:
+      - app-network
+
+#Docker Networks
+networks:
+  app-network:
+    driver: bridge
