@@ -7,22 +7,13 @@
 ; if this config file is up to date
 ; this is compared against a value hard-coded
 ; into the init script
-config_version = 50
-
-;#########################################################
-; Auto Update                                            #
-;#########################################################
+config_version = 49
 
 ; Allow you to hard code a default git branch for Ampache
 ; If you set this value the inbuilt updater will use this branch for updates.
 ; POSSIBLE VALUES: master develop
 ; DEFAULT: none
 ;github_force_branch = "develop"
-
-; This value allows to override the composer binary path to distinguish between multiple composer versions
-; Either a binary name in $PATH as well as a fully qualified path is possible
-; DEFAULT: composer
-;composer_binary_path = "composer"
 
 ; We sometimes need to talk and will show a warning to admin users
 ; Enable this setting if you don't want to see warnings (When we enable them)
@@ -51,7 +42,7 @@ config_version = 50
 ; if it is located at http://localhost/music you need to
 ; set web_path to /music
 ; DEFAULT: none
-;web_path = ""
+web_path = ""
 
 ; The local http url of your server.
 ; This is used to access the server from within the
@@ -72,31 +63,34 @@ config_version = 50
 ; Hostname of your database
 ; For socket authentication, set the path to socket file (e.g. /var/run/mysqld/mysqld.sock)
 ; DEFAULT: localhost
-database_hostname = localhost
+database_hostname = "db"
 
 ; Port to use when connecting to your database
 ; DEFAULT: none
-;database_port = 3306
+database_port = ""
 
 ; Name of your Ampache database
 ; DEFAULT: none
-database_name = ampache
+database_name = "ampache"
 
 ; Username for your Ampache database
 ; DEFAULT: none
-database_username = username
+database_username = "ampache_user"
 
 ; Password for your Ampache database, this can not be blank
 ; this is a 'forced' security precaution, the default value
 ; will not work (except if using socket authentication)
 ; DEFAULT: none
-database_password = password
+database_password = "12test34"
 
 ; Set a default charset for your database
 ; Don't change this unless you understand how to BACKUP and RESTORE a database!
 ;
-; DEFAULT: "utf8mb4"
-;database_charset = "utf8mb4"
+; Usually "utf8" or "utf8mb4". If you set "utf8mb4" as your charset
+; Ampache will change the storage engine on all tables to InnoDB
+; to support the extra character bytes needed in table KEYs
+; DEFAULT: "utf8"
+;database_charset = "utf8"
 
 ; Set a default collation for your database
 ; Don't change this unless you understand how to BACKUP and RESTORE a database!
@@ -106,8 +100,8 @@ database_password = password
 ; "utf8mb4_unicode_ci"     = 4 bytes per character
 ; "utf8mb4_unicode_520_ci" = Supports more characters and is based on UCA 5.2.0 weight keys
 ;   http://www.unicode.org/Public/UCA/5.2.0/allkeys.txt
-; DEFAULT: "utf8mb4_unicode_ci"
-;database_collation = "utf8mb4_unicode_ci"
+; DEFAULT: "utf8_unicode_ci"
+;database_collation = "utf8_unicode_ci"
 
 
 ;#########################################################
@@ -116,7 +110,7 @@ database_password = password
 
 ; Cryptographic secret
 ; This MUST BE changed with your own secret key. Ampache-specific, just pick any random string you want.
-secret_key = "abcdefghijklmnoprqstuvwyz0123456"
+secret_key = "220b856a816fedf6092e52499aea2d428f23709cbac2079b0c2aeb25e45a24"
 
 ; Length that a session will last expressed in seconds. Default is
 ; one hour.
@@ -223,6 +217,15 @@ getid3_tag_order = "vorbiscomment,id3v2,id3v1,quicktime,matroska,ape,asf,avi,mpe
 ; May break valid tags.
 ; DEFAULT: "false"
 ;getid3_detect_id3v2_encoding = "true"
+
+; This determines if we write the changes to files (as id3 tags) when modifying metadata, or only keep them in Ampache (the default).
+; DEFAULT: "false"
+;write_id3 = "true"
+
+; This determines if we write the changes to files (as id3 tags) when modifying album art, or only keep them in Ampache (the default)
+; as id3 metadata when updated.
+; DEFAULT: "false"
+;write_id3_art = "true"
 
 ; This determines the order in which metadata sources are used (and in the
 ; case of plugins, checked)
@@ -359,12 +362,6 @@ catalog_prefix_pattern = "The|An|A|Die|Das|Ein|Eine|Les|Le|La"
 ; DEFAULT: none
 ;allow_zip_types = "album"
 
-; Art Zip Add
-; This settings allows/disallows to include Album Art to the Zip 
-; If 'album_art_preferred_filename' exists this is included 
-; DEFAULT: false
-;art_zip_add = "true"
-
 ; File Zip Comment
 ; This is an optional configuration option that adds a comment
 ; to your zip files, this only applies if you've got allow_zip_downloads
@@ -376,7 +373,7 @@ catalog_prefix_pattern = "The|An|A|Die|Das|Ein|Eine|Les|Le|La"
 ; for each song. It requires transcode and encode_args_wav settings.
 ; You must also set tmp_dir_path in order for this to work
 ; DEFAULT: "false"
-;waveform = "true"
+waveform = "true"
 
 ; Waveform color
 ; The waveform color.
@@ -411,7 +408,7 @@ catalog_prefix_pattern = "The|An|A|Die|Das|Ein|Eine|Les|Le|La"
 ; This determines if a preview image should be retrieved from video files
 ; It requires encode_get_image transcode settings.
 ; DEFAULT: "false"
-;generate_video_preview = "true"
+generate_video_preview = "true"
 
 ; Uncomment if don't want Ampache to follow symlinks
 ; DEFAULT: "false"
@@ -489,7 +486,7 @@ sociable = "true"
 ; License
 ; This turns on / off all licensing features on Ampache
 ; DEFAULT: "false"
-;licensing = "true"
+licensing = "false"
 
 ; This options will turn on/off Demo Mode
 ; If Demo mode is on you can not play songs or update your catalog
@@ -686,7 +683,7 @@ lastfm_api_secret = ""
 ; Set this to true to enable display missing albums and the
 ; possibility for users to mark it as wanted.
 ; DEFAULT: "false"
-;wanted = "true"
+wanted = "false"
 
 ; Wanted types
 ; Set the allowed types of wanted releases (album,compilation,single,ep,live,remix,promotion,official)
@@ -713,7 +710,7 @@ wanted_types = "album,official"
 ; Set this to true to enable channels and the
 ; possibility for users to create channels from playlists
 ; DEFAULT: "false"
-;channel = "true"
+channel = "false"
 
 ; Live Streams
 ; Set this to true to enable live streams (radio) and the
@@ -792,7 +789,7 @@ show_footer_statistics = "true"
 ; (This means you can sync playlists without overloading your server)
 ; Make sure you enable scrobbling in your Subsonic client to keep recording stats!
 ; DEFAULT: "true"
-;subsonic_stream_scrobble = "false"
+;subsonic_stream_scrobble = "true"
 
 ;#########################################################
 ; Debugging                                              #
@@ -838,7 +835,7 @@ log_filename = "%name.%Y%m%d.log"
 ; Charset of generated HTML pages
 ; Default of UTF-8 should work for most people
 ; DEFAULT: UTF-8
-site_charset = UTF-8
+site_charset = "UTF-8"
 
 ; Locale Charset
 ; Local charset (mainly for file operations) if different
@@ -975,7 +972,7 @@ site_charset = UTF-8
 ; sign up for an account on your server.
 ; REMEMBER: don't forget to set the mail from address further down in the config.
 ; DEFAULT: "false"
-;allow_public_registration = "true"
+allow_public_registration = "false"
 
 ; Require Captcha Text on Image confirmation
 ; Turning this on requires the user to correctly
@@ -1014,7 +1011,7 @@ site_charset = UTF-8
 
 ; This will display the cookie disclaimer (EU Cookie Law)
 ; DEFAULT: "false"
-;cookie_disclaimer = "true"
+cookie_disclaimer = "false"
 
 ; The fields that will be shown on Registration page
 ; If a user wants to register.
@@ -1069,13 +1066,13 @@ registration_mandatory_fields = "fullname"
 ; transcode_TYPE = {allowed|required|false}
 ; DEFAULT: "false"
 ;;; Audio
-;transcode_m4a  = "allowed"
-;transcode_flac = "required"
-;transcode_mpc  = "required"
-;transcode_ogg  = "required"
+transcode_m4a = "required"
+transcode_flac = "required"
+transcode_mpc = "required"
+transcode_ogg = "allowed"
 ;transcode_oga  = "required"
 ;transcode_opus = "required"
-;transcode_wav  = "required"
+transcode_wav = "required"
 ;transcode_wma  = "required"
 ;transcode_aif  = "required"
 ;transcode_aiff = "required"
@@ -1083,9 +1080,9 @@ registration_mandatory_fields = "fullname"
 ;transcode_shn  = "required"
 transcode_mp3  = "allowed"
 ;;; Video
-;transcode_avi  = "allowed"
-;transcode_mkv  = "allowed"
-;transcode_mpg  = "allowed"
+transcode_avi = "allowed"
+transcode_mkv = "allowed"
+transcode_mpg = "allowed"
 ;transcode_mpeg = "allowed"
 ;transcode_m4v  = "allowed"
 ;transcode_mp4  = "allowed"
@@ -1098,11 +1095,11 @@ transcode_mp3  = "allowed"
 
 ; Default audio output format
 ; DEFAULT: none
-;encode_target = mp3
+encode_target = "mp3"
 
 ; Default video output format
 ; DEFAULT: none
-;encode_video_target = webm
+encode_video_target = "webm"
 
 ; Override the default output format on a per-type basis, for example,
 ; to stream lossless encoded files in lossy formats.
@@ -1143,7 +1140,7 @@ transcode_player_customize = "true"
 ; equivalent to the old default, but if you find that necessary you should be
 ; clever enough to figure out how on your own.
 ; DEFAULT: none
-;transcode_cmd = "ffmpeg"
+transcode_cmd = "ffmpeg"
 ;transcode_cmd = "avconv"
 ;transcode_cmd = "/usr/bin/neatokeen"
 
@@ -1288,3 +1285,4 @@ send_full_stream = "webplayer"
 ; For file name parsing. Any unnecessary abbreviations in file names can be removed during parsing
 ; by adding them to the list below so that they will be removed during the parsing process.
 common_abbr = "divx,xvid,dvdrip,hdtv,lol,axxo,repack,xor,pdtv,real,vtv,caph,2hd,proper,fqm,uncut,topaz,tvt,notv,fpn,fov,orenji,0tv,omicron,dsr,ws,sys,crimson,wat,hiqt,internal,brrip,boheme,vost,vostfr,fastsub,addiction,x264,LOL,720p,1080p,YIFY,evolve,fihtv,first,bokutox,bluray,tvboom,info"
+

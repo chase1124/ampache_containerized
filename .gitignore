@@ -1,4 +1,7 @@
 !Build/
+.DS_Store
+ampache/
+ampache-develop/
 .last_cover_stats
 /META.yml
 /META.json
