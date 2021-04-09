@@ -3,7 +3,8 @@ services:
   #Nginx Service
   webserver:
     image: ampache_nginx:4.4.1
-    container_name: webserver
+    container_name: ampache_nginx
+    build: ampache_nginx
     restart: unless-stopped
     tty: true
     ports:
@@ -14,15 +15,31 @@ services:
   #MySQL Service
   db:
     image: ampache_db:dev
-    container_name: db
+    container_name: ampache_db
+    build: ampache_db
     restart: unless-stopped
     tty: true
+    volumes:
+      - db_data:/var/lib/mysql
     ports:
       - "3306:3306"
     networks:
       - app-network
+    environment:
+      DB: ampache
+      USER: ampache
+      PASSWORD: 12test34
+
+volumes:
+  db_data: {}
 
 #Docker Networks
 networks:
   app-network:
     driver: bridge
+
+# You will need to change this
+# Keep in mind docker compose is simplistic and cannot deploy
+#  in a VPC which has more than 1 subnet per AZ (it doesn't know which is the public subnet)
+#  https://github.com/docker/compose-cli/issues/1411
+x-aws-vpc: vpc-fe68e599

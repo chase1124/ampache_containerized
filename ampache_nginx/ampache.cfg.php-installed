@@ -63,7 +63,7 @@ web_path = ""
 ; Hostname of your database
 ; For socket authentication, set the path to socket file (e.g. /var/run/mysqld/mysqld.sock)
 ; DEFAULT: localhost
-database_hostname = "db"
+database_hostname = "ampache_db"
 
 ; Port to use when connecting to your database
 ; DEFAULT: none
@@ -75,7 +75,7 @@ database_name = "ampache"
 
 ; Username for your Ampache database
 ; DEFAULT: none
-database_username = "ampache_user"
+database_username = "ampache"
 
 ; Password for your Ampache database, this can not be blank
 ; this is a 'forced' security precaution, the default value
@@ -110,7 +110,7 @@ database_password = "12test34"
 
 ; Cryptographic secret
 ; This MUST BE changed with your own secret key. Ampache-specific, just pick any random string you want.
-secret_key = "220b856a816fedf6092e52499aea2d428f23709cbac2079b0c2aeb25e45a24"
+secret_key = "42b708daa5d8f2c845e729bfa22f343e750144ac33456d1a1ddf978a5a6854"
 
 ; Length that a session will last expressed in seconds. Default is
 ; one hour.
