@@ -1,6 +1,26 @@
 # ampache_containerized
 Project to run ampache containerized and with different platform support
 
+Make sure you have Docker compose installed (a part of Docker Desktop now)
+You will need to do a fresh install because the ampache config file has a reference to a "secret" which I guess uniquely identifies it to the database
+The easiest thing to do would be to bring the application up, log into the ampache_nginx docker and delete the config file, run the web installer, then save the new config
+1. Edit docker-compose.yaml to look at the environment variables for the ampache_db which describes how it will init the db and create a db user
+2. Put some music in amapche_nginx/music/
+3. docker compose build 
+4. docker compose up -d
+5. docker exec -it ampache_nginx /bin/bash
+5. ampache_nginx> rm /var/www/html/ampache/config/ampache.cfg.php
+6. run the web installer from your local computer: http://localhost/install.php
+7. Installer notes: the database network name is the same name as the "container_name" in docker-compose.yml. The db user and password is passed into the environmental variables of docker-compose.yml and when you build the container image it should have created the db and used those credentials
+8. Once installed you need to copy the config file you deleted back out of the container and rebuild the container
+9. docker copy apache_nginx:/var/www/html/ampache/config/ampache.cfg.php ampache_nginx/
+10. docker compose build
+11. Restart and check if you want
+12. docker compose down && docker compose up -d
+13. When you first login to your ampache server it will ask you to create a catalog. Create a "local" type catalog and by default the container build copies music you put into ampache_nginx/music/* into /data/music/ on the container
+
+---
+OLD INSTALLATION NOTES BELOW
 Right now this is set to deploy a pre-installed ampache with an empty "catalog" of music
 1. Put some mp3s in the local music/ folder
 2. Build the docker images (you can tag them with another image name but then you'll have to update the docker-composer.yml file)
