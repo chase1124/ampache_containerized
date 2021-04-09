@@ -4,6 +4,13 @@ Project to run ampache containerized and with different platform support
 Make sure you have Docker compose installed (a part of Docker Desktop now)
 You will need to do a fresh install because the ampache config file has a reference to a "secret" which I guess uniquely identifies it to the database
 The easiest thing to do would be to bring the application up, log into the ampache_nginx docker and delete the config file, run the web installer, then save the new config
+
+Pre-Install
+Download the source files (the ampache github project) into the right dirctory
+1. cd ampache_nginx/source
+2. git clone https://github.com/ampache/ampache.git
+
+Install
 1. Edit docker-compose.yaml to look at the environment variables for the ampache_db which describes how it will init the db and create a db user
 2. Put some music in amapche_nginx/music/
 3. docker compose build 
@@ -17,7 +24,7 @@ The easiest thing to do would be to bring the application up, log into the ampac
 10. docker compose build
 11. Restart and check if you want
 12. docker compose down && docker compose up -d
-13. When you first login to your ampache server it will ask you to create a catalog. Create a "local" type catalog and by default the container build copies music you put into ampache_nginx/music/* into /data/music/ on the container
+13. When you first login to your ampache server it will ask you to create a catalog. Create a "local" type catalog and by default the container build copies music you put into ampache_nginx/music/* into /ampache/music/ on the container
 
 ---
 OLD INSTALLATION NOTES BELOW
