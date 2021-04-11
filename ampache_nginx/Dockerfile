@@ -15,8 +15,8 @@ RUN rm /etc/nginx/sites-enabled/default
 RUN mkdir /var/log/ampache && chown -R www-data /var/log/ampache/
 RUN chown -R www-data /var/www/html/ampache/
 RUN mkdir -p /ampache/music
-COPY music/* /ampache/music/
-RUN chown -R www-data /ampache/music
+#COPY music/* /ampache/music/
+#RUN chown -R www-data /ampache/music
 #CMD ["nginx","-g","daemon off;"]
 CMD /etc/init.d/php7.4-fpm start && nginx -g 'daemon off;'
 EXPOSE 80

@@ -1,8 +1,8 @@
-version: '1'
+version: '3.8'
 services:
   #Nginx Service
   webserver:
-    image: ampache_nginx:4.4.1
+    image: ${APP_IMAGE_NAME}:4.4.1
     container_name: ampache_nginx
     build: ampache_nginx
     restart: unless-stopped
@@ -11,10 +11,12 @@ services:
       - "80:80"
     networks:
       - app-network
+    volumes:
+      - music:/ampache/music
 
   #MySQL Service
   db:
-    image: ampache_db:dev
+    image: ${DB_IMAGE_NAME}:dev
     container_name: ampache_db
     build: ampache_db
     restart: unless-stopped
@@ -26,12 +28,13 @@ services:
     networks:
       - app-network
     environment:
-      DB: ampache
-      USER: ampache
-      PASSWORD: 12test34
+      DB: ${AMPACHE_DB}ampache
+      USER: ${AMPACHE_DB_USER}ampache
+      PASSWORD: ${AMPACHE_DB_PASSWORD}12test34
 
 volumes:
   db_data: {}
+  music: {}
 
 #Docker Networks
 networks:
